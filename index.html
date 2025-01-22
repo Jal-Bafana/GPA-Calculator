@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA Calculator</title>
+    <style>
+        body {
+            margin: 5%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            font-size: 4em;
+        }
+        label {
+            font-weight: 700;
+        }
+        #lblNumCourses {
+            font-size: 1.5em;
+            margin-bottom: 1%;
+        }
+        #numCourses, input, select {
+            padding: 8px;
+            margin: 10px 0;
+            width: 50%;
+        }
+        #button {
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #26a69a;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+        #button:hover {
+            background-color: #138496;
+        }
+        .course-field {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>GPA Calculator</h1>
+
+    <div id="numOfCourses">
+        <label id="lblNumCourses" for="numCourses">Number Of Courses:</label>
+        <input id="numCourses" type="number" min="0" placeholder="Enter Number of Courses" oninput="numOfCourses()">
+    </div>
+
+    <div id="fields"></div>
+
+    <button id="button" onclick="calculateGPA()">Calculate GPA</button>
+
+    <h2>GPA: </h2>
+
+    <script>
+        function numOfCourses() {
+            const numCourses = parseInt(document.querySelector('#numCourses').value);
+            const fields = document.querySelector('#fields');
+            fields.innerHTML = ''; // Clear existing fields
+
+            if (!isNaN(numCourses) && numCourses > 0) {
+                for (let i = 0; i < numCourses; i++) {
+                    const courseField = document.createElement('div');
+                    courseField.classList.add('course-field');
+                    
+                    courseField.innerHTML = `
+                        <label>Credit Hours:</label>
+                        <input type="number" name="creditHours" min="0" placeholder="Credit Hours">
+                        <label>Grade:</label>
+                        <select name="grade">
+                            <option value="-">Select Grade</option>
+                            <option value="4">A+</option>
+                            <option value="3.75">A</option>
+                            <option value="3.5">A-</option>
+                            <option value="3.25">B+</option>
+                            <option value="3">B</option>
+                            <option value="2.75">B-</option>
+                            <option value="2.5">C+</option>
+                            <option value="2.25">C</option>
+                            <option value="2">C-</option>
+                            <option value="1.5">D</option>
+                            <option value="0">F</option>
+                            <option value="0">AB</option>
+                        </select>
+                    `;
+                    fields.appendChild(courseField);
+                }
+            }
+        }
+
+        function calculateGPA() {
+            const grades = document.querySelectorAll('select[name="grade"]');
+            const creditHours = document.querySelectorAll('input[name="creditHours"]');
+            let totalPoints = 0;
+            let totalCredits = 0;
+
+            for (let i = 0; i < grades.length; i++) {
+                const grade = parseFloat(grades[i].value);
+                const credits = parseInt(creditHours[i].value);
+
+                if (isNaN(grade) || grade === '-') {
+                    alert(`Please select a valid grade for Course ${i + 1}`);
+                    return;
+                }
+                if (isNaN(credits) || credits <= 0) {
+                    alert(`Please enter valid credit hours for Course ${i + 1}`);
+                    return;
+                }
+
+                totalPoints += grade * credits;
+                totalCredits += credits;
+            }
+
+            const gpa = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(3) : 0;
+            document.querySelector('h2').textContent = `GPA: ${gpa}`;
+        }
+    </script>
+
+</body>
+</html>

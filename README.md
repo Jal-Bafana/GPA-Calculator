@@ -16,9 +16,7 @@ The GPA Calculator is a web-based tool that allows users to calculate their Grad
 
 ## Link to Website
 You can view and use the GPA Calculator by visiting this link:  
-[GPA Calculator](#)
-
-> Replace `#` with the URL where the project is hosted, such as GitHub Pages or another hosting platform.
+[GPA Calculator](https://gpa-calculator-jal.vercel.app/)
 
 ## Usage Instructions
 1. Open the `index.html` file in any modern web browser.

@@ -44,7 +44,7 @@ The grades and their corresponding points are as follows:
 | F      | 0.00   |
 | AB     | 0.00   |
 
-## Validation Rules
+## Validation Rules 
 - **Grades**: Must select a valid grade for each course from the dropdown menu.
 - **Credit Hours**: Must enter a positive numeric value for each course.
 
